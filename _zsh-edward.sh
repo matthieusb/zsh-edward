@@ -1,4 +1,4 @@
-#compdef sdk
+#compdef edward
 
 zstyle ':completion:*:descriptions' format '%B%d%b'
 
@@ -17,23 +17,12 @@ zstyle ':completion:*:descriptions' format '%B%d%b'
 ########################################################
 
 __describe_commands() {
-  # TODO Change this
+  # TODO
 
   local -a commands
   commands=(
     'install: install a program'
     'uninstall: uninstal an existing program'
-    'list: list all available packages or  '
-    'use: change the version of an existing program'
-    'default: set a program default version'
-    'current: display all programs current running version'
-    'upgrade: upgrade all current programs or a particular one'
-    'version: display current sdkman version'
-    'broadcast: get the latest SDK release notifications'
-    'help: display commands help'
-    'offline: Toggle offline mode'
-    'selfupdate: update sdkman itself'
-    'flush: flush sdkman local state'
   )
 
   _describe -t commands "Commands" commands && ret=0
@@ -66,7 +55,6 @@ function _edward() {
     '2: :->second_arg' \
     && ret=0
 
-
     # TODO Develop necessary methods
     case $state in
       first_arg)
@@ -75,12 +63,11 @@ function _edward() {
       second_arg)
         case $target in
           start)
-            # TODO
+          # TODO
             ;;
           *)
             ;;
         esac
-        ;;
     esac
 
     return $ret
