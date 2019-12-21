@@ -2,6 +2,9 @@
 
 zstyle ':completion:*:descriptions' format '%B%d%b'
 
+zstyle ':completion::complete:edward:*:commands' group-name commands
+zstyle ':completion::complete:edward:*:arguments' group-name arguments
+
 # TODO See if we keep the following "zstyle" lines (try and find their actual effect)
 # zstyle ':completion::complete:sdk:*:commands' group-name commands
 # zstyle ':completion::all_candidates:sdk:*:all_candidates' group-name all_candidates
@@ -16,16 +19,29 @@ zstyle ':completion:*:descriptions' format '%B%d%b'
 ##### FIRST ARG FUNCTIONS
 ########################################################
 
-__describe_commands() {
-  # TODO
-
+__describe_commands_arguments() {
   local -a commands
+  local -a arguments
   commands=(
-    'install: install a program'
-    'uninstall: uninstal an existing program'
+    'generate: Automatically generate Edward config for a source tree'
+    'help: Help about any command'
+    'list: List available services and groups'
+    'restart: Rebuild and relaunch a service or a group'
+    'start: Build and launch a service or a group'
+    'status: Display service status'
+    'stop: Stop a service or a group'
+    'tail: Tail the log for a service'
+    'tiplog: View the tip (last 5 lines) of multiple, or all services'
+    'version: Displays the currently installed version of Edward'
+  )
+
+  arguments=(
+    '-b: [stringSlice] Choose a specific backend for a service or group, of the form "<service>:<backend name>"'
+    '-c: [PATH] Use service configuration file at PATH'
   )
 
   _describe -t commands "Commands" commands && ret=0
+  _describe -t arguments "Arguments" arguments && ret=0
 }
 
 ########################################################
@@ -58,7 +74,7 @@ function _edward() {
     # TODO Develop necessary methods
     case $state in
       first_arg)
-        __describe_commands
+        __describe_commands_arguments
         ;;
       second_arg)
         case $target in
