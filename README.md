@@ -2,12 +2,11 @@
 
 This edward plugin aims at making [edward](https://github.com/blei-lab/edward) usage easier with completion scripts and aliases
 
-TODO Add usage gif example
-<!-- ![zsh-sdkman usage gif](./zsh-sdkman-usage.gif?raw=true "Optional Title") -->
+![zsh-edward usage gif](./zsh-edward-usage.gif?raw=true "Optional Title")
 
 ## Installation
 
-zsh-sdkman is not bundled with ZSH, so you need to install it.
+zsh-edward is not bundled with ZSH, so you need to install it.
 
 ### [Antigen](https://github.com/zsh-users/antigen)
 
