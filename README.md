@@ -40,7 +40,7 @@ plugins=(... zsh-edward)
 
 ## Usage
 
-TODO
+This plugin solely contains completion scripts and aliases
 
 ### Usage help
 
