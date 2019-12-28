@@ -1,8 +1,6 @@
 # Edward Zsh plugin
 
-# WORK IN PROGRESS, not usable for now
-
-This edward plugin aims at making [sdkman](https://sdkman.io) usage easier with completion scripts and aliases
+This edward plugin aims at making [edward](https://github.com/blei-lab/edward) usage easier with completion scripts and aliases
 
 TODO Add usage gif example
 <!-- ![zsh-sdkman usage gif](./zsh-sdkman-usage.gif?raw=true "Optional Title") -->
@@ -36,12 +34,14 @@ plugins=(... zsh-edward)
 
 ## Dependencies
 
-TODO
+* awk
+* sed
+* egrep
+* grep
 
 ## Usage
 
-### First launch and completion update
-
+TODO
 
 ### Usage help
 

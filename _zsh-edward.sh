@@ -4,16 +4,8 @@ zstyle ':completion:*:descriptions' format '%B%d%b'
 
 zstyle ':completion::complete:edward:*:commands' group-name commands
 zstyle ':completion::complete:edward:*:arguments' group-name arguments
-
-# TODO See if we keep the following "zstyle" lines (try and find their actual effect)
-# zstyle ':completion::complete:sdk:*:commands' group-name commands
-# zstyle ':completion::all_candidates:sdk:*:all_candidates' group-name all_candidates
-# zstyle ':completion::candidates_to_uninstall:sdk:*:candidates_to_uninstall' group-name candidates_to_uninstall
-# zstyle ':completion::complete:sdk::' list-grouped
-
-########################################################
-##### UTILITY FUNCTIONS
-########################################################
+zstyle ':completion::complete:edward:*:groups' group-name groups
+zstyle ':completion::complete:edward:*:services' group-name services
 
 ########################################################
 ##### FIRST ARG FUNCTIONS
@@ -48,13 +40,24 @@ __describe_commands_arguments() {
 ##### SECOND ARG FUNCTIONS
 ########################################################
 
-# TODO
+__get_current_edward_groups() {
+  local -a groups
 
-########################################################
-##### THIRD ARG FUNCTIONS
-########################################################
+  groups=( $(edward list | tail -n+2 | grep -Pzo --color=never 'Groups:(\n|.)*Services:' | awk 'NR>2 {print last} {last=$0}' | sed -e "s/[\t ]//g;/^$/d"))
+  _describe -t groups "Groups" groups && ret=0
 
-# TODO
+  unset groups
+}
+
+__get_current_edward_services() {
+  local -a services
+
+    services=( $(edward list | tail -n+2 | grep -Pzo --color=never 'Services:(\n|.)*' | awk 'NR>2 {print last} {last=$0}' | sed -e "s/[\t ]//g;/^$/d"))
+  _describe -t services "Services" services && ret=0
+
+  unset services
+}
+
 
 ########################################################
 ##### MAIN FUNCTION AND EXECUTION
@@ -71,15 +74,18 @@ function _edward() {
     '2: :->second_arg' \
     && ret=0
 
-    # TODO Develop necessary methods
     case $state in
       first_arg)
         __describe_commands_arguments
         ;;
       second_arg)
         case $target in
-          start)
-          # TODO
+          start|restart|stop)
+            __get_current_edward_groups
+            __get_current_edward_services
+            ;;
+          tail|tiplog)
+            __get_current_edward_services
             ;;
           *)
             ;;
@@ -90,6 +96,12 @@ function _edward() {
 }
 
 _edward "$@"
+
+unset __describe_commands_arguments
+unset __get_current_edward_groups
+unset __get_current_edward_services
+unset _edward
+
 
 # Local Variables:
 # mode: Shell-Script
