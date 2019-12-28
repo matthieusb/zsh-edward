@@ -73,6 +73,15 @@ Use "edward [command] --help" for more information about a command.
 
 Some aliases are available through this plugin:
 
-```
-TODO
-```
+| Alias         | Command    |
+| ------------- |-------------|
+| edgen | edward generate |
+| edh | edward help |
+| edlist | edward list |
+| edrestart | edward restart |
+| edstart | edward start |
+| edstatus | edward status |
+| edstop | edward stop |
+| edtail | edward tail |
+| edtiplog | edward tiplog |
+| edv | edward version |
