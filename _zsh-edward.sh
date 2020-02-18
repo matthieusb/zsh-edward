@@ -43,7 +43,7 @@ __describe_commands_arguments() {
 __get_current_edward_groups() {
   local -a groups
 
-  groups=( $(edward list | tail -n+2 | grep -Pzo --color=never 'Groups:(\n|.)*Services:' | awk 'NR>2 {print last} {last=$0}' | sed -e "s/[\t ]//g;/^$/d"))
+  groups=( $(edward list | tail -n+2 | awk '/^Groups:$/{flag=1;next}/^Services:$/{flag=0}flag' | sed -e "s/[[:space:]]//;/^$/g"))
   _describe -t groups "Groups" groups && ret=0
 
   unset groups
@@ -52,7 +52,7 @@ __get_current_edward_groups() {
 __get_current_edward_services() {
   local -a services
 
-    services=( $(edward list | tail -n+2 | grep -Pzo --color=never 'Services:(\n|.)*' | awk 'NR>2 {print last} {last=$0}' | sed -e "s/[\t ]//g;/^$/d"))
+    services=( $(edward list | tail -n+2 | awk '/^Services:$/{flag=1;next}flag' | sed -e "s/[[:space:]]//;/^$/g"))
   _describe -t services "Services" services && ret=0
 
   unset services
