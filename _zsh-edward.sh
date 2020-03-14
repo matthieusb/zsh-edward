@@ -4,6 +4,7 @@ zstyle ':completion:*:descriptions' format '%B%d%b'
 
 zstyle ':completion::complete:edward:*:commands' group-name commands
 zstyle ':completion::complete:edward:*:arguments' group-name arguments
+zstyle ':completion::complete:edward:*:running' group-name running
 zstyle ':completion::complete:edward:*:groups' group-name groups
 zstyle ':completion::complete:edward:*:services' group-name services
 
@@ -39,6 +40,15 @@ __describe_commands_arguments() {
 ########################################################
 ##### SECOND ARG FUNCTIONS
 ########################################################
+
+__get_current_edward_running() {
+  local -a running
+
+  running=( $(edward status | grep "RUNNING" | cut -d '|' -f 3 | sed -e "s/[[:space:]]//;/^$/g"))
+  _describe -t running "Currently running" running && ret=0
+
+  unset running
+}
 
 __get_current_edward_groups() {
   local -a groups
@@ -80,9 +90,17 @@ function _edward() {
         ;;
       second_arg)
         case $target in
-          start|restart|stop)
+          stop)
+            __get_current_edward_running
             __get_current_edward_groups
             __get_current_edward_services
+            ;;
+          start)
+            __get_current_edward_groups
+            __get_current_edward_services
+            ;;
+          restart)
+            __get_current_edward_running
             ;;
           tail|tiplog)
             __get_current_edward_services

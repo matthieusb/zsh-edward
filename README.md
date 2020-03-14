@@ -40,7 +40,8 @@ plugins=(... zsh-edward)
 
 ## Usage
 
-This plugin solely contains completion scripts and aliases
+This plugin solely contains completion scripts and aliases.
+It will allow you to have completion when starting/restarting/stopping services or groups.
 
 ### Usage help
 
@@ -70,7 +71,7 @@ Flags:
 Use "edward [command] --help" for more information about a command.
 ```
 
-Some aliases are available through this plugin:
+Some aliases are available through this plugin, completion still works when using them:
 
 | Alias         | Command    |
 | ------------- |-------------|
